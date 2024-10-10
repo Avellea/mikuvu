@@ -173,7 +173,7 @@ function getmiku()
 	end
 		
 	if Network.isWifiEnabled() then
-		Network.downloadFile("https://safebooru.org/index.php?limit=1&page=dapi&s=post&q=index&json=1&tags=hatsune_miku+sort:random+highres", dataFolder.."/post.json") 
+		Network.downloadFile("https://safebooru.org/index.php?limit=1&page=dapi&s=post&q=index&json=1&tags=hatsune_miku+sort:random", dataFolder.."/post.json") 
 		local file1 = System.openFile(dataFolder.."/post.json", FREAD)
 		local size1 = System.sizeFile(file1)
 		local jsonEncoded = System.readFile(file1, size1)					-- Encoded JSON file data
