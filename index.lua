@@ -11,7 +11,7 @@ math.randomseed(rh .. rm .. rs)
 local json = dofile("app0:/deps/lua/json.lua")
 
 -- Load font and set font size
-local fnt0 = Font.load("app0:/deps/font/ShinGo-Trimmed.ttf")
+local fnt0 = Font.load("app0:/deps/font/ShinGo.ttf")
 Font.setPixelSizes(fnt0, 25)
 
 -- Define colors
