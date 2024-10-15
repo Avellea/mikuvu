@@ -137,6 +137,15 @@ function toggleFade()
 		return id, "Transition | Off"
 	end
 end
+
+-- If the network is ever disconnected and reconnected for whatever reason
+-- press select to re-initialize the system network (lua Network.init doesn't seem to work?)
+function connectNetwork()
+	local id = 6
+	result = Network.requestString("https://captive.apple.com/")
+	return id, "Network Reset | Success"
+end
+
 -- Fades in an image at the specified scale in a certain amount of time.
 -- 4x fadeSpeed is approximately 1 second on my Vita.
 function fadeInImageScale(x, y, img, x_scale, y_scale, fadeSpeed)
@@ -165,6 +174,7 @@ end
 
 -- Gets and loads pictures from decoded JSON
 function getmiku()
+
 	::getmiku::
 	-- Clear last loaded image from memory
 	if img ~= nil then
@@ -174,6 +184,7 @@ function getmiku()
 		
 	if Network.isWifiEnabled() then
 		Network.downloadFile("https://safebooru.org/index.php?limit=1&page=dapi&s=post&q=index&json=1&tags=hatsune_miku+sort:random", dataFolder.."/post.json") 
+		-- Network.downloadFile("https://safebooru.org/index.php?limit=1&page=dapi&s=post&q=index&json=1&id=497317", dataFolder.."/post.json")
 		local file1 = System.openFile(dataFolder.."/post.json", FREAD)
 		local size1 = System.sizeFile(file1)
 		local jsonEncoded = System.readFile(file1, size1)					-- Encoded JSON file data
@@ -188,6 +199,7 @@ function getmiku()
 		
 		url = jsonDecoded[1]["sample_url"]
 		fullUrl = jsonDecoded[1]["file_url"]
+		print("[mikuvu]							"..jsonDecoded[1]["id"])
 		fullRes = false
 		if url == "" then 
 			url = fullUrl
@@ -200,6 +212,7 @@ function getmiku()
 		end
 		
 		currentId = jsonDecoded[1]["id"]
+		
 		Network.downloadFile(url, dataFolder.."/MikuVU.jpg")
 		local file2 = System.openFile(dataFolder.."/MikuVU.jpg", FREAD)
 		size2 = System.sizeFile(file2)
@@ -300,6 +313,11 @@ while true do
 				response, message = toggleFade()
 			end
 			buttonDown = true
+		elseif (Controls.check(pad, SCE_CTRL_SELECT)) then
+			if not buttonDown then
+				response, message = connectNetwork()
+			end
+			buttonDown = true
 		else
 			buttonDown = false
 		end
@@ -364,6 +382,9 @@ while true do
 			end
 			Font.print(fnt0, 20, 30, message, white)
 		elseif response == 5 then
+			Graphics.fillRect(15, 250, 30, 80, translucentBlack) 
+			Font.print(fnt0, 20, 30, message, white) 
+		elseif repsonse == 6 then
 			Graphics.fillRect(15, 250, 30, 80, translucentBlack) 
 			Font.print(fnt0, 20, 30, message, white) 
 		else
