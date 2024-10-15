@@ -143,7 +143,7 @@ end
 function connectNetwork()
 	local id = 6
 	result = Network.requestString("https://captive.apple.com/")
-	return id, "Network Reset | Success"
+	return id, "Network | Reset"
 end
 
 -- Fades in an image at the specified scale in a certain amount of time.
@@ -215,6 +215,7 @@ function getmiku()
 		Network.downloadFile(url, dataFolder.."/MikuVU.jpg")
 		local file2 = System.openFile(dataFolder.."/MikuVU.jpg", FREAD)
 		size2 = System.sizeFile(file2)
+		print("[MikuVU]		size: "..size2)
 		if size2 == 0 then
 			System.closeFile(file2)
 			goto getmiku
@@ -339,10 +340,10 @@ while true do
 	Graphics.initBlend()
 	if not jsonValid then 
 		Graphics.debugPrint(5, 220, "Error | Check Network Connection", Color.new(255,255,255))
-		goto getmiku
+		getmiku()
 	elseif img == nil then
 		Graphics.debugPrint(5, 220, "Error | Check Network Connection", Color.new(255,255,255))
-		goto getmiku
+		getmiku()
 	else
 		if height >= width then
 			imgData = {drawWidth, 0, img, 544 / height, 544 / height, 4}
