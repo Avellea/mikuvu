@@ -17,4 +17,4 @@
 - Select - Re-initialize networking <sup>2</sup>
 
 1. Saved images are located in `ux0:data/MikuVU/SAVED`
-2. Press select if your system network is ever disconnected and reconnected.
+2. Re-establish network connection if MikuVU is in offline mode.
