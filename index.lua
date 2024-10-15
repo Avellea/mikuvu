@@ -198,7 +198,7 @@ function getmiku()
 		
 		url = jsonDecoded[1]["sample_url"]
 		fullUrl = jsonDecoded[1]["file_url"]
-		print("[MikuVU] "..jsonDecoded[1]["id"])
+		print("[MikuVU]		"..jsonDecoded[1]["id"])
 		fullRes = false
 		if url == "" then 
 			url = fullUrl
@@ -339,8 +339,10 @@ while true do
 	Graphics.initBlend()
 	if not jsonValid then 
 		Graphics.debugPrint(5, 220, "Error | Check Network Connection", Color.new(255,255,255))
+		goto getmiku
 	elseif img == nil then
 		Graphics.debugPrint(5, 220, "Error | Check Network Connection", Color.new(255,255,255))
+		goto getmiku
 	else
 		if height >= width then
 			imgData = {drawWidth, 0, img, 544 / height, 544 / height, 4}
