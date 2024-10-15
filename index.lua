@@ -198,7 +198,7 @@ function getmiku()
 		
 		url = jsonDecoded[1]["sample_url"]
 		fullUrl = jsonDecoded[1]["file_url"]
-		print("[mikuvu] "..jsonDecoded[1]["id"])
+		print("[MikuVU] "..jsonDecoded[1]["id"])
 		fullRes = false
 		if url == "" then 
 			url = fullUrl
