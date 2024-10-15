@@ -198,7 +198,7 @@ function getmiku()
 		
 		url = jsonDecoded[1]["sample_url"]
 		fullUrl = jsonDecoded[1]["file_url"]
-		print("[MikuVU]		"..jsonDecoded[1]["id"])
+		-- print("[MikuVU]		"..jsonDecoded[1]["id"])
 		fullRes = false
 		if url == "" then 
 			url = fullUrl
@@ -215,7 +215,8 @@ function getmiku()
 		Network.downloadFile(url, dataFolder.."/MikuVU.jpg")
 		local file2 = System.openFile(dataFolder.."/MikuVU.jpg", FREAD)
 		size2 = System.sizeFile(file2)
-		print("[MikuVU]		size: "..size2)
+		-- print("[MikuVU]		size: "..size2)
+		print("[MikuVU]		ID: "..jsonDecoded[1]["id"]..", size: "..size2)
 		if size2 == 0 then
 			System.closeFile(file2)
 			goto getmiku
