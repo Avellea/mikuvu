@@ -184,7 +184,6 @@ function getmiku()
 		
 	if Network.isWifiEnabled() then
 		Network.downloadFile("https://safebooru.org/index.php?limit=1&page=dapi&s=post&q=index&json=1&tags=hatsune_miku+sort:random", dataFolder.."/post.json") 
-		-- Network.downloadFile("https://safebooru.org/index.php?limit=1&page=dapi&s=post&q=index&json=1&id=497317", dataFolder.."/post.json")
 		local file1 = System.openFile(dataFolder.."/post.json", FREAD)
 		local size1 = System.sizeFile(file1)
 		local jsonEncoded = System.readFile(file1, size1)					-- Encoded JSON file data
@@ -199,7 +198,7 @@ function getmiku()
 		
 		url = jsonDecoded[1]["sample_url"]
 		fullUrl = jsonDecoded[1]["file_url"]
-		print("[mikuvu]							"..jsonDecoded[1]["id"])
+		print("[mikuvu] "..jsonDecoded[1]["id"])
 		fullRes = false
 		if url == "" then 
 			url = fullUrl
