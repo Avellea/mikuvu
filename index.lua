@@ -107,10 +107,10 @@ end
 function saveImage()
 	local id = 4
 	if offlineMode then
-		return id, "Error | Offline", 2
+		return id, "Error | Offline Mode", 2
 	end
 	if System.doesFileExist(saveFolder .. "/" .. currentId .. ".jpg") then
-		return id, "Image Already Saved", 0
+		return id, "Error | Already Saved", 0
 	elseif img ~= nil then
 		if fullRes then
 			local new = System.openFile(saveFolder .. "/" .. currentId .. ".jpg", FCREATE)
@@ -365,10 +365,10 @@ while true do
 	if delay < 0 then		-- Informational display delay timer is set, print info by function ID
 		menu = true			-- Set menu visibility to true
 		if response == 1 or response == 2 then 								-- timerIncrease()/timerDecrease()
-			Graphics.fillRect(15, 250, 30, 80, translucentBlack)
+			Graphics.fillRect(15, 175, 30, 80, translucentBlack)
 			Font.print(fnt0, 20, 30, string.format("Delay | %02ds", seconds), white)
 		elseif response == 3 then											-- toggleAutoNext()
-			Graphics.fillRect(15, 250, 30, 80, translucentBlack)								
+			Graphics.fillRect(15, 175, 30, 80, translucentBlack)								
 			if Timer.isPlaying(tmr) then
 				Font.print(fnt0, 20, 30, string.format("Timer | %02ds", timeSec), white)
 			else
@@ -381,18 +381,18 @@ while true do
 			elseif status == 1 then
 				Graphics.fillRect(15, 325, 30, 80, translucentBlack)
 			else
-				Graphics.fillRect(15, 325, 30, 80, translucentBlack)
+				Graphics.fillRect(15, 275, 30, 80, translucentBlack)
 			end
 			Font.print(fnt0, 20, 30, message, white)
 		elseif response == 5 then
-			Graphics.fillRect(15, 250, 30, 80, translucentBlack) 
+			Graphics.fillRect(15, 225, 30, 80, translucentBlack) 
 			Font.print(fnt0, 20, 30, message, white) 
 		elseif repsonse == 6 then
 			Graphics.fillRect(15, 250, 30, 80, translucentBlack) 
 			Font.print(fnt0, 20, 30, message, white) 
 		else
 			menu = false
-			Graphics.fillRect(15, 325, 30, 80, translucentBlack) 
+			Graphics.fillRect(15, 250, 30, 80, translucentBlack) 
 			Font.print(fnt0, 20, 30, message, white) 
 		end
 	else
