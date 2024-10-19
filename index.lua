@@ -126,6 +126,17 @@ function saveImage()
 	end
 end
 
+--Copy Function
+function copyFile(src, dst)
+    local s = System.openFile(src, FREAD)
+    local d = System.openFile(dst, FCREATE)
+    local size = System.sizeFile(s)
+    local buf = System.readFile(s, size)
+    System.closeFile(s)
+    System.writeFile(d, buf, size)
+    System.closeFile(d)
+end
+
 -- Toggles fade
 function toggleFade()
 	local id = 5
@@ -143,6 +154,8 @@ end
 function connectNetwork()
 	local id = 6
 	result = Network.requestString("https://captive.apple.com/")
+	if Network.isWifiEnabled() then offlineMode = false
+	end
 	return id, "Network | Reset"
 end
 
@@ -198,7 +211,6 @@ function getmiku()
 		
 		url = jsonDecoded[1]["sample_url"]
 		fullUrl = jsonDecoded[1]["file_url"]
-		-- print("[MikuVU]		"..jsonDecoded[1]["id"])
 		fullRes = false
 		if url == "" then 
 			url = fullUrl
@@ -212,19 +224,18 @@ function getmiku()
 		
 		currentId = jsonDecoded[1]["id"]
 		
-		Network.downloadFile(url, dataFolder.."/MikuVU.jpg")
-		local file2 = System.openFile(dataFolder.."/MikuVU.jpg", FREAD)
+		Network.downloadFile(url, dataFolder.."/Miku.jpg")
+		local file2 = System.openFile(dataFolder.."/Miku.jpg", FREAD)
 		size2 = System.sizeFile(file2)
-		-- print("[MikuVU]		size: "..size2)
-		print("[MikuVU]		ID: "..jsonDecoded[1]["id"]..", size: "..size2)
+		print("[MikuVU]		ID: "..jsonDecoded[1]["id"]..", SIZE: "..size2)
 		if size2 == 0 then
 			System.closeFile(file2)
 			goto getmiku
 		end
 		image = System.readFile(file2, size2)
 		System.closeFile(file2)
-		img = Graphics.loadImage(dataFolder.."/MikuVU.jpg")
-		System.deleteFile(dataFolder.."/MikuVU.jpg")
+		img = Graphics.loadImage(dataFolder.."/Miku.jpg")
+		System.deleteFile(dataFolder.."/Miku.jpg")
 	else
 		-- if no internet, load images in /saved/
 		if System.doesDirExist(saveFolder) and not(offlineMode) then
@@ -232,7 +243,7 @@ function getmiku()
 			local fullExt = ""
 			for _, image in ipairs(savedFiles) do
 				fullExt = string.lower(string.match(image["name"],"%.[%a%d]+$"))
-				if fullExt == ".jpg" or fullExt == ".jpeg" or fullExt == ".png" or fullExt == ".bmp" then
+				if fullExt == ".jpg" or fullExt == ".jpeg" or fullExt == ".png" or fullExt == ".bmp" and not size== 0 then
 					offlineImgList[#offlineImgList+1] = image["name"]
 				end
 			end
@@ -267,11 +278,21 @@ end
 
 -- Check if ux0:/data/MikuVU exists
 if not System.doesDirExist(dataFolder) then
-	System.createDirectory(dataFolder)
+    System.createDirectory(dataFolder)
 end
 -- Check if SAVED folder exists
 if not System.doesDirExist(saveFolder) then
-	System.createDirectory(saveFolder)
+    System.createDirectory(saveFolder)
+end
+-- Check sample 
+if not System.doesFileExist("ux0:/data/MikuVU/SAVED/SAMPLE1.png") then
+    copyFile("app0:/deps/sample/SAMPLE.png", "ux0:data/MikuVU/SAVED/SAMPLE1.png")
+end
+if not System.doesFileExist("ux0:/data/MikuVU/SAVED/SAMPLE2.png") then
+    copyFile("app0:/deps/sample/SAMPLE.png", "ux0:data/MikuVU/SAVED/SAMPLE2.png")
+end
+if not System.doesFileExist("ux0:/data/MikuVU/SAVED/SAMPLE3.png") then
+    copyFile("app0:/deps/sample/SAMPLE.png", "ux0:data/MikuVU/SAVED/SAMPLE3.png")
 end
 
 getmiku()
@@ -339,11 +360,9 @@ while true do
 
 	-- Start drawing
 	Graphics.initBlend()
-	if not jsonValid then 
-		Graphics.debugPrint(5, 220, "Error | Check Network Connection", Color.new(255,255,255))
+	if not jsonValid then
 		getmiku()
 	elseif img == nil then
-		Graphics.debugPrint(5, 220, "Error | Check Network Connection", Color.new(255,255,255))
 		getmiku()
 	else
 		if height >= width then
