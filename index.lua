@@ -120,7 +120,7 @@ function saveImage()
 			local fullExt = string.lower(string.match(fullUrl,"%.[%a%d]+$"))
 			Network.downloadFile(fullUrl, saveFolder .. "/" .. currentId .. fullExt)
 		end
-		return id, "Saved | " .. currentId .. ".jpg", 1
+		return id, "Saved | " .. currentId, 1
 	else	
 		return id, "Error | Failed", 2
 	end
