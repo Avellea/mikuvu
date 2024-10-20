@@ -109,8 +109,12 @@ function saveImage()
 	if offlineMode then
 		return id, "Error | Offline Mode", 2
 	end
-	if System.doesFileExist(saveFolder .. "/" .. currentId .. ".jpg") then
-		return id, "Error | Already Saved", 0
+	
+	if System.doesFileExist(saveFolder .. "/" .. currentId .. ".jpg") or
+   System.doesFileExist(saveFolder .. "/" .. currentId .. ".jpeg") or
+   System.doesFileExist(saveFolder .. "/" .. currentId .. ".png") or
+   System.doesFileExist(saveFolder .. "/" .. currentId .. ".bmp") then
+    return id, "Error | Already Saved", 0
 	elseif img ~= nil then
 		if fullRes then
 			local new = System.openFile(saveFolder .. "/" .. currentId .. ".jpg", FCREATE)
@@ -122,7 +126,7 @@ function saveImage()
 		end
 		return id, "Saved | " .. currentId, 1
 	else	
-		return id, "Error | Failed", 2
+		return id, "Error | Save Failed", 2
 	end
 end
 
@@ -396,22 +400,22 @@ while true do
 		elseif response == 4 then
 			menu = false
 			if status == 0 then
-				Graphics.fillRect(15, 325, 30, 80, translucentBlack)
+				Graphics.fillRect(15, 295, 30, 80, translucentBlack)
 			elseif status == 1 then
-				Graphics.fillRect(15, 325, 30, 80, translucentBlack)
+				Graphics.fillRect(15, 280, 30, 80, translucentBlack)
 			else
-				Graphics.fillRect(15, 275, 30, 80, translucentBlack)
+				Graphics.fillRect(15, 270, 30, 80, translucentBlack)
 			end
 			Font.print(fnt0, 20, 30, message, white)
 		elseif response == 5 then
-			Graphics.fillRect(15, 225, 30, 80, translucentBlack) 
+			Graphics.fillRect(15, 220, 30, 80, translucentBlack) 
 			Font.print(fnt0, 20, 30, message, white) 
 		elseif repsonse == 6 then
-			Graphics.fillRect(15, 250, 30, 80, translucentBlack) 
+			Graphics.fillRect(15, 235, 30, 80, translucentBlack) 
 			Font.print(fnt0, 20, 30, message, white) 
 		else
 			menu = false
-			Graphics.fillRect(15, 250, 30, 80, translucentBlack) 
+			Graphics.fillRect(15, 235, 30, 80, translucentBlack) 
 			Font.print(fnt0, 20, 30, message, white) 
 		end
 	else
