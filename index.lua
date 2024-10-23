@@ -4,7 +4,7 @@ pcall(Network.term)
 Network.init()
 
 -- Initialize sound
-Sound.init()
+-- Sound.init()
 
 -- Seed random number generator
 local rh,rm,rs = System.getTime()
@@ -127,7 +127,7 @@ function saveImage()
 			local fullExt = string.lower(string.match(fullUrl,"%.[%a%d]+$"))
 			Network.downloadFile(fullUrl, saveFolder .. "/" .. currentId .. fullExt)
 		end
-		Sound.playShutter(IMAGE_CAPTURE)
+		-- Sound.playShutter(IMAGE_CAPTURE)
 		return id, "Saved | " .. currentId, 1
 	else	
 		return id, "Error | Save Failed", 2
