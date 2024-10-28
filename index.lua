@@ -222,7 +222,7 @@ function getmiku()
 		end
 		
 		fileExt = string.lower(string.sub(url, -4, -1)) 
-		if fileExt ~= "jpeg" and fileExt ~= ".jpg" then
+		if fileExt ~= ".jpeg" and fileExt ~= ".jpg" then
 			goto getmiku
 		end
 		
