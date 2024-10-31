@@ -398,7 +398,7 @@ while true do
 			if status == 0 then
 				Graphics.fillRect(15, 295, 30, 80, translucentBlack)
 			elseif status == 1 then
-				Graphics.fillRect(15, 325, 30, 80, translucentBlack)
+				Graphics.fillRect(15, 340, 30, 80, translucentBlack)
 			else
 				Graphics.fillRect(15, 270, 30, 80, translucentBlack)
 			end
