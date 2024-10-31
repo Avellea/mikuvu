@@ -224,8 +224,8 @@ function getmiku()
 		
 		currentId = jsonDecoded[1]["id"]
 		
-		Network.downloadFile(url, dataFolder.."/Miku.jpg")
-		local file2 = System.openFile(dataFolder.."/Miku.jpg", FREAD)
+		Network.downloadFile(url, dataFolder.."/Miku")
+		local file2 = System.openFile(dataFolder.."/Miku", FREAD)
 		size2 = System.sizeFile(file2)
 		print("[MikuVU]		ID: "..jsonDecoded[1]["id"]..", SIZE: "..size2)
 		if size2 == 0 then
@@ -234,8 +234,8 @@ function getmiku()
 		end
 		image = System.readFile(file2, size2)
 		System.closeFile(file2)
-		img = Graphics.loadImage(dataFolder.."/Miku.jpg")
-		System.deleteFile(dataFolder.."/Miku.jpg")
+		img = Graphics.loadImage(dataFolder.."/Miku")
+		System.deleteFile(dataFolder.."/Miku")
 	else
 		-- if no internet, load images in /saved/
 		if System.doesDirExist(saveFolder) and not(offlineMode) then
