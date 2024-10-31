@@ -106,14 +106,11 @@ end
 -- Saves image with the ID as name
 function saveImage()
 	local id = 4
+	local fullExt = string.lower(string.match(fullUrl,"%.[%a%d]+$"))
 	if offlineMode then
 		return id, "Error | Offline Mode", 2
 	end
-	
-	if System.doesFileExist(saveFolder .. "/" .. currentId .. ".jpg") or
-   System.doesFileExist(saveFolder .. "/" .. currentId .. ".jpeg") or
-   System.doesFileExist(saveFolder .. "/" .. currentId .. ".png") or
-   System.doesFileExist(saveFolder .. "/" .. currentId .. ".bmp") then
+	if System.doesFileExist(saveFolder .. "/" .. currentId .. fullExt) then
     return id, "Error | Already Saved", 0
 	elseif img ~= nil then
 		if fullRes then
@@ -121,10 +118,9 @@ function saveImage()
 			System.writeFile(new, image, size2)		-- Image data and Size Loaded in getmiku()
 			System.closeFile(new)
 		else
-			local fullExt = string.lower(string.match(fullUrl,"%.[%a%d]+$"))
 			Network.downloadFile(fullUrl, saveFolder .. "/" .. currentId .. fullExt)
 		end
-		return id, "Saved | " .. currentId, 1
+		return id, "Saved | " .. currentId .. fullExt, 1
 	else	
 		return id, "Error | Save Failed", 2
 	end
