@@ -385,13 +385,13 @@ while true do
 		menu = true			-- Set menu visibility to true
 		if response == 1 or response == 2 then 								-- timerIncrease()/timerDecrease()
 			Graphics.fillRect(15, 175, 30, 80, translucentBlack)
-			Font.print(fnt0, 20, 30, string.format("Delay | %02ds", seconds), white)
+			Font.print(fnt0, 20, 40, string.format("Delay | %02ds", seconds), white)
 		elseif response == 3 then											-- toggleAutoNext()
 			Graphics.fillRect(15, 175, 30, 80, translucentBlack)								
 			if Timer.isPlaying(tmr) then
-				Font.print(fnt0, 20, 30, string.format("Timer | %02ds", timeSec), white)
+				Font.print(fnt0, 20, 40, string.format("Timer | %02ds", timeSec), white)
 			else
-				Font.print(fnt0, 20, 30, "Timer | Off", white)
+				Font.print(fnt0, 20, 40, "Timer | Off", white)
 			end
 		elseif response == 4 then
 			menu = false
@@ -402,17 +402,17 @@ while true do
 			else
 				Graphics.fillRect(15, 270, 30, 80, translucentBlack)
 			end
-			Font.print(fnt0, 20, 30, message, white)
+			Font.print(fnt0, 20, 40, message, white)
 		elseif response == 5 then
 			Graphics.fillRect(15, 220, 30, 80, translucentBlack) 
-			Font.print(fnt0, 20, 30, message, white) 
+			Font.print(fnt0, 20, 40, message, white) 
 		elseif repsonse == 6 then
 			Graphics.fillRect(15, 235, 30, 80, translucentBlack) 
-			Font.print(fnt0, 20, 30, message, white) 
+			Font.print(fnt0, 20, 40, message, white) 
 		else
 			menu = false
 			Graphics.fillRect(15, 235, 30, 80, translucentBlack) 
-			Font.print(fnt0, 20, 30, message, white) 
+			Font.print(fnt0, 20, 40, message, white) 
 		end
 	else
 		menu = false		-- Set menu visibility to false
