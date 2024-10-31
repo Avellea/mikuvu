@@ -114,7 +114,7 @@ function saveImage()
     return id, "Error | Already Saved", 0
 	elseif img ~= nil then
 		if fullRes then
-			local new = System.openFile(saveFolder .. "/" .. currentId, FCREATE)
+			local new = System.openFile(saveFolder .. "/" .. currentId .. fullExt, FCREATE)
 			System.writeFile(new, image, size2)		-- Image data and Size Loaded in getmiku()
 			System.closeFile(new)
 		else
