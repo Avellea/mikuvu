@@ -106,25 +106,21 @@ end
 -- Saves image with the ID as name
 function saveImage()
 	local id = 4
+	local fullExt = string.lower(string.match(fullUrl,"%.[%a%d]+$"))
 	if offlineMode then
 		return id, "Error | Offline Mode", 2
 	end
-	
-	if System.doesFileExist(saveFolder .. "/" .. currentId .. ".jpg") or
-   System.doesFileExist(saveFolder .. "/" .. currentId .. ".jpeg") or
-   System.doesFileExist(saveFolder .. "/" .. currentId .. ".png") or
-   System.doesFileExist(saveFolder .. "/" .. currentId .. ".bmp") then
+	if System.doesFileExist(saveFolder .. "/" .. currentId .. fullExt) then
     return id, "Error | Already Saved", 0
 	elseif img ~= nil then
 		if fullRes then
-			local new = System.openFile(saveFolder .. "/" .. currentId .. ".jpg", FCREATE)
+			local new = System.openFile(saveFolder .. "/" .. currentId .. fullExt, FCREATE)
 			System.writeFile(new, image, size2)		-- Image data and Size Loaded in getmiku()
 			System.closeFile(new)
 		else
-			local fullExt = string.lower(string.match(fullUrl,"%.[%a%d]+$"))
 			Network.downloadFile(fullUrl, saveFolder .. "/" .. currentId .. fullExt)
 		end
-		return id, "Saved | " .. currentId, 1
+		return id, "Saved | " .. currentId .. fullExt, 1
 	else	
 		return id, "Error | Save Failed", 2
 	end
@@ -222,14 +218,14 @@ function getmiku()
 		end
 		
 		fileExt = string.lower(string.sub(url, -4, -1)) 
-		if fileExt ~= ".jpeg" and fileExt ~= ".jpg" then
+		if fileExt ~= ".jpeg" and fileExt ~= ".jpg" and fileExt ~= ".png" then
 			goto getmiku
 		end
 		
 		currentId = jsonDecoded[1]["id"]
 		
-		Network.downloadFile(url, dataFolder.."/Miku.jpg")
-		local file2 = System.openFile(dataFolder.."/Miku.jpg", FREAD)
+		Network.downloadFile(url, dataFolder.."/Miku")
+		local file2 = System.openFile(dataFolder.."/Miku", FREAD)
 		size2 = System.sizeFile(file2)
 		print("[MikuVU]		ID: "..jsonDecoded[1]["id"]..", SIZE: "..size2)
 		if size2 == 0 then
@@ -238,8 +234,8 @@ function getmiku()
 		end
 		image = System.readFile(file2, size2)
 		System.closeFile(file2)
-		img = Graphics.loadImage(dataFolder.."/Miku.jpg")
-		System.deleteFile(dataFolder.."/Miku.jpg")
+		img = Graphics.loadImage(dataFolder.."/Miku")
+		System.deleteFile(dataFolder.."/Miku")
 	else
 		-- if no internet, load images in /saved/
 		if System.doesDirExist(saveFolder) and not(offlineMode) then
@@ -389,34 +385,34 @@ while true do
 		menu = true			-- Set menu visibility to true
 		if response == 1 or response == 2 then 								-- timerIncrease()/timerDecrease()
 			Graphics.fillRect(15, 175, 30, 80, translucentBlack)
-			Font.print(fnt0, 20, 30, string.format("Delay | %02ds", seconds), white)
+			Font.print(fnt0, 20, 40, string.format("Delay | %02ds", seconds), white)
 		elseif response == 3 then											-- toggleAutoNext()
 			Graphics.fillRect(15, 175, 30, 80, translucentBlack)								
 			if Timer.isPlaying(tmr) then
-				Font.print(fnt0, 20, 30, string.format("Timer | %02ds", timeSec), white)
+				Font.print(fnt0, 20, 40, string.format("Timer | %02ds", timeSec), white)
 			else
-				Font.print(fnt0, 20, 30, "Timer | Off", white)
+				Font.print(fnt0, 20, 40, "Timer | Off", white)
 			end
 		elseif response == 4 then
 			menu = false
 			if status == 0 then
 				Graphics.fillRect(15, 295, 30, 80, translucentBlack)
 			elseif status == 1 then
-				Graphics.fillRect(15, 280, 30, 80, translucentBlack)
+				Graphics.fillRect(15, 340, 30, 80, translucentBlack)
 			else
 				Graphics.fillRect(15, 270, 30, 80, translucentBlack)
 			end
-			Font.print(fnt0, 20, 30, message, white)
+			Font.print(fnt0, 20, 40, message, white)
 		elseif response == 5 then
 			Graphics.fillRect(15, 220, 30, 80, translucentBlack) 
-			Font.print(fnt0, 20, 30, message, white) 
+			Font.print(fnt0, 20, 40, message, white) 
 		elseif repsonse == 6 then
 			Graphics.fillRect(15, 235, 30, 80, translucentBlack) 
-			Font.print(fnt0, 20, 30, message, white) 
+			Font.print(fnt0, 20, 40, message, white) 
 		else
 			menu = false
 			Graphics.fillRect(15, 235, 30, 80, translucentBlack) 
-			Font.print(fnt0, 20, 30, message, white) 
+			Font.print(fnt0, 20, 40, message, white) 
 		end
 	else
 		menu = false		-- Set menu visibility to false
