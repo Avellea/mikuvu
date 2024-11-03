@@ -12,6 +12,10 @@
 1. Saved images are located in `ux0:data/MikuVU/SAVED`
 2. Re-establish network connection if MikuVU is in offline mode.
 
+## Screenshots
+[Livearea](/repo_assets/livearea.png)
+[2](/repo_assets/1.png)
+
 ## TODO
 - [ ] refactoring
 - [ ] configuration files
