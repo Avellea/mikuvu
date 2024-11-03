@@ -13,8 +13,8 @@
 2. Re-establish network connection if MikuVU is in offline mode.
 
 ## Screenshots
-[Livearea](/repo_assets/livearea.png)
-[2](/repo_assets/1.png)
+![Livearea](/repo_assets/livearea.png)
+![2](/repo_assets/1.png)
 
 ## TODO
 - [ ] refactoring
