@@ -1,4 +1,6 @@
---- Controls---
+MikuVU
+
+Controls
 - L Trigger/R Trigger - Save current image *1
 - Up/Triangle - Toggle timer on/off
 - Right/Circle - Increase timer duration
